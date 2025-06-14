@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>amaneko</groupId>
+    <artifactId>ml_and_fx</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>ml_and_fx</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+        <spark.version>3.5.5</spark.version>
+        <scala.binary.version>2.13</scala.binary.version> <!-- Изменить на 2.13 -->
+        <javafx.version>17.0.6</javafx.version>
+    </properties>
+
+    <dependencies>
+        <!-- SLF4J для логирования -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+
+        <!-- Spark зависимости БЕЗ scope provided -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_${scala.binary.version}</artifactId>
+            <version>${spark.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_${scala.binary.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-mllib_${scala.binary.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
+        <!-- База данных -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.5</version>
+        </dependency>
+
+        <!-- JavaFX зависимости -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <!-- ControlsFX (совместимая версия) -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.1</version>
+        </dependency>
+        <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version> <!-- Используем свойство junit.version -->
+        <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version> <!-- Используем свойство junit.version -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version> <!-- Добавлено для параметризованных тестов -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Остальные совместимые зависимости -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.27.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+            <!-- Обновленный Surefire Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version> <!-- Обновленная версия -->
+                <configuration>
+                    <argLine>--add-exports java.base/sun.nio.ch=ALL-UNNAMED --add-exports java.base/sun.security.action=ALL-UNNAMED</argLine>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- Failsafe Plugin (для интеграционных тестов, хорошая практика) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.2.5</version> <!-- Такая же версия, как у Surefire -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- JavaFX Maven Plugin с исправленными опциями -->
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>amaneko.ml_and_fx.controller.MovieRecommendationApp</mainClass>
+                    <!-- Добавляем Spark JARы к classpath вместо module path -->
+                    <includePathExceptionsInClasspath>true</includePathExceptionsInClasspath>
+                    <options>
+                        <!-- Открыть модули для Spark -->
+                        <option>--add-opens</option>
+                        <option>java.base/java.lang=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.lang.invoke=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.lang.reflect=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.io=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.net=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.nio=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.util=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.util.concurrent=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/java.util.concurrent.atomic=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/sun.nio.ch=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/sun.nio.cs=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/sun.security.action=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.base/sun.util.calendar=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>java.security.jgss/sun.security.krb5=ALL-UNNAMED</option>
+                        <!-- JavaFX модули -->
+                        <option>--add-opens</option>
+                        <option>javafx.base/com.sun.javafx.runtime=ALL-UNNAMED</option>
+                        <!-- Память -->
+                        <option>-Xmx4g</option>
+                        <option>-Xss64m</option>
+                        <!-- Дополнительные настройки для Spark -->
+                        <option>--add-exports</option>
+                        <option>java.base/sun.nio.ch=ALL-UNNAMED</option>
+                        <option>--add-exports</option>
+                        <option>java.base/sun.security.util=ALL-UNNAMED</option>
+                    </options>
+                </configuration>
+            </plugin>
+
+            <!-- Exec Maven Plugin for running with classpath -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>amaneko.ml_and_fx.controller.MovieRecommendationApp</mainClass>
+                    <addResourcesToClasspath>true</addResourcesToClasspath>
+                    <includeProjectDependencies>true</includeProjectDependencies>
+                    <includePluginDependencies>false</includePluginDependencies>
+                    <arguments>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.lang=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.lang.invoke=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.lang.reflect=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.io=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.net=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.nio=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.util=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.util.concurrent=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/java.util.concurrent.atomic=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/sun.nio.cs=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/sun.security.action=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.base/sun.util.calendar=ALL-UNNAMED</argument>
+                        <argument>--add-opens</argument>
+                        <argument>java.security.jgss/sun.security.krb5=ALL-UNNAMED</argument>
+                        <argument>--add-exports</argument>
+                        <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
+                        <argument>--add-exports</argument>
+                        <argument>java.base/sun.security.util=ALL-UNNAMED</argument>
+                        <argument>-Xmx4g</argument>
+                        <argument>-Xss64m</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
