@@ -58,23 +58,6 @@ public class MainController implements Initializable {
         movieList = FXCollections.observableArrayList();
         movieListView.setItems(movieList);
         
-        // Настраиваем комбо-бокс категорий
-        // movieCategoryCombo.setItems(FXCollections.observableArrayList( // FXID NOT FOUND
-        //     "Все фильмы", "Поиск", "Общие рекомендации", 
-        //     "Персональные рекомендации", "Для повторного просмотра", "Оцененные фильмы"
-        // ));
-        // movieCategoryCombo.setValue("Все фильмы"); // FXID NOT FOUND
-        
-        // Добавляем обработчик изменения категории
-        // movieCategoryCombo.setOnAction(event -> handleCategoryChange()); // FXID NOT FOUND
-        
-        // Настраиваем комбо-бокс типов рекомендаций
-        // recommendationTypeCombo.setItems(FXCollections.observableArrayList(
-        //     "Общие рекомендации", "Персональные", "Пересмотреть"
-        // ));
-        // recommendationTypeCombo.setValue("Общие рекомендации");
-        
-        // Добавляем событие когда пользователь кликает на фильм
         movieListView.setOnMouseClicked(event -> {
             Movie selectedMovie = movieListView.getSelectionModel().getSelectedItem();
             if (selectedMovie != null) {
@@ -372,63 +355,9 @@ public class MainController implements Initializable {
         System.out.println("✅ Фильм " + selectedMovie.getTitle() + " отмечен как просмотренный");
     }
     
-    // Обработчик изменения категории в комбо-боксе
-    private void handleCategoryChange() {
-        // String selectedCategory = movieCategoryCombo.getValue(); // FXID NOT FOUND
-        // if (selectedCategory == null) return; // FXID NOT FOUND
 
-        // loadingIndicator.setVisible(true); // FXID NOT FOUND
-        // statusLabel.setText("Загрузка фильмов..."); // FXID NOT FOUND
-
-        // movieList.clear(); // FXID NOT FOUND
-        // List<Movie> newMovies = null; // FXID NOT FOUND
-
-        // switch (selectedCategory) { // FXID NOT FOUND
-        //     case "Все фильмы": // FXID NOT FOUND
-        //         newMovies = recommendationService.getAllMovies(50); // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        //     case "Поиск": // FXID NOT FOUND
-        //         // Оставляем текущие результаты поиска, если они есть
-        //         // Или можно предложить пользователю ввести запрос
-        //         statusLabel.setText("Введите запрос для поиска"); // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        //     case "Общие рекомендации": // FXID NOT FOUND
-        //         newMovies = recommendationService.getGeneralRecommendations(currentUser != null ? currentUser.getId() : -1, 20); // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        //     case "Персональные рекомендации": // FXID NOT FOUND
-        //         if (currentUser != null) { // FXID NOT FOUND
-        //             newMovies = recommendationService.getPersonalizedRecommendations(currentUser.getId(), 20); // FXID NOT FOUND
-        //         } else { // FXID NOT FOUND
-        //             showError("Авторизуйтесь для персональных рекомендаций"); // FXID NOT FOUND
-        //         } // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        //     case "Для повторного просмотра": // FXID NOT FOUND
-        //         if (currentUser != null) { // FXID NOT FOUND
-        //             newMovies = recommendationService.getRewatchRecommendations(currentUser.getId(), 20); // FXID NOT FOUND
-        //         } else { // FXID NOT FOUND
-        //             showError("Авторизуйтесь для рекомендаций к пересмотру"); // FXID NOT FOUND
-        //         } // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        //     case "Оцененные фильмы": // FXID NOT FOUND
-        //         if (currentUser != null) { // FXID NOT FOUND
-        //             newMovies = recommendationService.getRatedMovies(currentUser.getId()); // FXID NOT FOUND
-        //         } else { // FXID NOT FOUND
-        //             showError("Авторизуйтесь для просмотра оцененных фильмов"); // FXID NOT FOUND
-        //         } // FXID NOT FOUND
-        //         break; // FXID NOT FOUND
-        // } // FXID NOT FOUND
-
-        // if (newMovies != null) { // FXID NOT FOUND
-        //     movieList.addAll(newMovies); // FXID NOT FOUND
-        // } // FXID NOT FOUND
-
-        // loadingIndicator.setVisible(false); // FXID NOT FOUND
-        // if (newMovies != null && newMovies.isEmpty()) { // FXID NOT FOUND
-        //     statusLabel.setText("Фильмы в категории '" + selectedCategory + "' не найдены"); // FXID NOT FOUND
-        // } else if (newMovies != null) { // FXID NOT FOUND
-        //     statusLabel.setText("Загружено " + movieList.size() + " фильмов"); // FXID NOT FOUND
-        // } // FXID NOT FOUND
-    }
+    // private void handleCategoryChange() {
+    // }
 
     // Показываем детали фильма
     private void showMovieDetails(Movie movie) {
