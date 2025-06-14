@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="amaneko.ml_and_fx.controller.RatingDialogController" 
+            styleClass="netflix-background, rating-dialog"
+            prefWidth="600.0" prefHeight="550.0">
+            
+    <stylesheets>
+        <URL value="@netflix-styles.css"/>
+        <URL value="@rating-dialog.css"/>
+    </stylesheets>
+            
+    <!-- Header Section -->
+    <top>
+        <VBox alignment="CENTER" spacing="10.0" styleClass="rating-dialog-header">
+            <children>
+                <Label fx:id="movieTitleLabel" text="Оценить фильм" textAlignment="CENTER" 
+                       styleClass="movie-title">
+                </Label>
+                <Label fx:id="movieInfoLabel" text="Информация о фильме" textAlignment="CENTER" 
+                       styleClass="movie-info">
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+        </VBox>
+    </top>
+   
+   <!-- Main Content -->
+   <center>
+      <VBox spacing="25.0" alignment="TOP_CENTER" styleClass="rating-content-container">
+         <children>
+            <!-- Rating Section -->
+            <VBox spacing="20.0" alignment="CENTER" styleClass="rating-content-section">
+               <children>
+                  <Label text="Ваша оценка:" styleClass="section-title">
+                  </Label>
+                  
+                  <!-- Star Rating Display -->
+                  <HBox fx:id="starRatingBox" alignment="CENTER" spacing="8.0" styleClass="rating-hbox">
+                     <children>
+                        <Label fx:id="star1" text="☆" styleClass="star-button" onMouseClicked="#handleStarClick" />
+                        <Label fx:id="star2" text="☆" styleClass="star-button" onMouseClicked="#handleStarClick" />
+                        <Label fx:id="star3" text="☆" styleClass="star-button" onMouseClicked="#handleStarClick" />
+                        <Label fx:id="star4" text="☆" styleClass="star-button" onMouseClicked="#handleStarClick" />
+                        <Label fx:id="star5" text="☆" styleClass="star-button" onMouseClicked="#handleStarClick" />
+                     </children>
+                  </HBox>
+                  
+                  <!-- Rating Slider as backup -->
+                  <VBox spacing="15.0" alignment="CENTER">
+                     <children>
+                        <Slider fx:id="ratingSlider" min="1" max="5" value="3" majorTickUnit="1" 
+                                minorTickCount="0" showTickLabels="true" showTickMarks="true" 
+                                prefWidth="300.0" styleClass="rating-slider" />
+                        <Label fx:id="ratingValueLabel" alignment="CENTER" text="3 из 5 звёзд" 
+                               styleClass="rating-value-label" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            
+            <!-- Review Section -->
+            <VBox spacing="15.0" styleClass="rating-content-section">
+               <children>
+                  <Label text="Отзыв (обязательно):" styleClass="section-title" />
+                  <ScrollPane fitToWidth="true" prefHeight="80.0" styleClass="review-scroll">
+                     <content>
+                        <TextArea fx:id="reviewTextArea" prefHeight="75.0" wrapText="true" 
+                                 promptText="Поделитесь своим мнением о фильме..." 
+                                 styleClass="text-area" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="25.0" left="35.0" right="35.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+   
+   <!-- Button Section -->
+   <bottom>
+      <VBox spacing="10.0" styleClass="rating-button-panel">
+         <children>
+            <!-- Стандартные кнопки -->
+            <HBox alignment="CENTER" spacing="20.0">
+               <children>
+                  <Button fx:id="cancelButton" text="Отмена" cancelButton="true" 
+                          onAction="#handleCancel" prefWidth="160.0"
+                          styleClass="secondary-button">
+                  </Button>
+                  <Button fx:id="publishButton" text="Опубликовать" defaultButton="true"
+                          onAction="#handlePublish" prefWidth="200.0"
+                          styleClass="primary-button">
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </bottom>
+</BorderPane>

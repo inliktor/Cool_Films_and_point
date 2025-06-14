@@ -1,0 +1,191 @@
+/* Netflix-style for Rating Dialog */
+
+/* Main dialog background */
+.rating-dialog {
+    -fx-background-color: #141414;
+    -fx-min-width: 600px;
+    -fx-min-height: 550px;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 550px;
+}
+
+/* Dialog header */
+.rating-dialog-header {
+    -fx-background-color: #1a1a1a;
+    -fx-padding: 15px;
+    -fx-border-color: #333333;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Movie title */
+.movie-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Movie info */
+.movie-info {
+    -fx-font-size: 15px;
+    -fx-text-fill: #b3b3b3;
+    -fx-font-style: italic;
+}
+
+/* Content section */
+.rating-content-section {
+    -fx-background-color: rgba(30, 30, 30, 0.7);
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}
+
+/* Section titles */
+.section-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Star ratings */
+.star-rating-box {
+    -fx-spacing: 8px;
+    -fx-padding: 10px;
+}
+
+.star-rating-active {
+    -fx-font-size: 28px;
+    -fx-text-fill: #E50914;
+    -fx-cursor: hand;
+}
+
+.star-rating-inactive {
+    -fx-font-size: 28px;
+    -fx-text-fill: rgba(255, 255, 255, 0.3);
+    -fx-cursor: hand;
+}
+
+.star-rating-hover {
+    -fx-font-size: 30px;
+    -fx-text-fill: #f40612;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.7), 10, 0, 0, 0);
+}
+
+/* Star animation */
+.star-animation {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+/* Rating slider */
+.rating-slider .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 5px;
+}
+
+.rating-slider .thumb {
+    -fx-background-color: #E50914;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.5), 5, 0, 0, 0);
+}
+
+.rating-value-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #E50914;
+    -fx-font-weight: bold;
+}
+
+/* Text area for review */
+.review-text-area {
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+}
+
+.review-text-area:focused {
+    -fx-background-color: #272727;
+    -fx-border-color: #E50914;
+}
+
+.review-text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* Button panel */
+.rating-button-panel {
+    -fx-background-color: #0d0d0d;
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}
+
+/* Cancel button */
+.cancel-button {
+    -fx-background-color: #454545;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #5d5d5d;
+}
+
+/* Save button */
+.save-button {
+    -fx-background-color: #666666;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+}
+
+.save-button:hover {
+    -fx-background-color: #7a7a7a;
+}
+
+/* Publish button */
+.publish-button {
+    -fx-background-color: #E50914;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 5, 0, 0, 2);
+}
+
+.publish-button:hover {
+    -fx-background-color: #f40612;
+}
+
+.publish-button:pressed {
+    -fx-background-color: #cc0811;
+}
+
+/* Watched button */
+.watched-button {
+    -fx-background-color: #0071eb;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 15px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 113, 235, 0.3), 5, 0, 0, 2);
+}
+
+.watched-button:hover {
+    -fx-background-color: #0085ff;
+}
+
+.watched-button:pressed {
+    -fx-background-color: #0064c8;
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="amaneko.ml_and_fx.controller.MainController">
+   <top>
+      <VBox spacing="10">
+         <!-- Заголовок -->
+         <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="🎬 Рекомендации фильмов" styleClass="title" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="userInfoLabel" text="Пользователь" />
+            <Button fx:id="logoutButton" text="Выйти" onAction="#handleLogout" styleClass="logout-button" />
+         </HBox>
+         
+         <!-- Поиск -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="🔍 Поиск фильмов:" styleClass="section-title" />
+            <TextField fx:id="searchField" promptText="Введите название фильма..." prefWidth="300" />
+            <Button fx:id="searchButton" text="Найти" onAction="#handleSearch" />
+         </HBox>
+         
+         <!-- User Preferences -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="⚙️ Настройки:" styleClass="section-title" />
+            <Button fx:id="preferencesButton" text="Настроить предпочтения" onAction="#handlePreferences" styleClass="preferences-button" />
+         </HBox>
+         
+         <!-- Movie Rating -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="⭐ Оценить фильм:" styleClass="section-title" />
+            <Button fx:id="rateMovieButton" text="Оценить выбранный фильм" onAction="#handleRateMovie" styleClass="rate-button" />
+         </HBox>
+         
+         <!-- Рекомендации -->
+         <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="🎯 Рекомендации:" styleClass="section-title" />
+            <Label text="Количество (0-10):" />
+            <!-- <ComboBox fx:id="recommendationTypeCombo" prefWidth="150" promptText="Тип рекомендаций" /> -->
+            <Button fx:id="recommendButton" text="Рекомендация" onAction="#handleRecommendButton" styleClass="recommend-button" />
+            <Button fx:id="clearRecommendationsButton" text="🔄 Сброс" onAction="#handleClearRecommendations" styleClass="clear-button" />
+            <ProgressIndicator fx:id="loadingIndicator" prefHeight="25" prefWidth="25" visible="false" />
+         </HBox>
+         
+         <padding>
+            <Insets bottom="10" left="15" right="15" top="10" />
+         </padding>
+      </VBox>
+   </top>
+   
+   <center>
+      <HBox spacing="15">
+         <!-- Список фильмов -->
+         <VBox spacing="5" prefWidth="400">
+            <ListView fx:id="movieListView" prefHeight="500" />
+         </VBox>
+         
+         <!-- Детали фильма -->
+         <VBox spacing="5" HBox.hgrow="ALWAYS">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <Label text="🎭 Информация о фильме:" styleClass="section-title" />
+               <Region HBox.hgrow="ALWAYS" />
+               <Button fx:id="markWatchedButton" text="✅ Отметить как просмотренное" onAction="#handleMarkWatched" styleClass="mark-watched-button" />
+            </HBox>
+            <HBox spacing="15">
+               <!-- Постер фильма -->
+               <VBox spacing="5" alignment="TOP_CENTER" prefWidth="200">
+                  <Label text="🖼️ Постер:" styleClass="section-title" />
+                  <ImageView fx:id="moviePosterView" fitWidth="180" fitHeight="270" preserveRatio="true" 
+                             styleClass="image-view" />
+               </VBox>
+               <!-- Текстовые детали -->
+               <TextArea fx:id="movieDetailsArea" prefHeight="500" wrapText="true" editable="false" HBox.hgrow="ALWAYS" />
+            </HBox>
+         </VBox>
+      </HBox>
+   </center>
+   
+   <bottom>
+      <HBox alignment="CENTER">
+         <Label fx:id="statusLabel" text="Готов к работе" />
+         <padding>
+            <Insets bottom="10" left="15" right="15" top="5" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>

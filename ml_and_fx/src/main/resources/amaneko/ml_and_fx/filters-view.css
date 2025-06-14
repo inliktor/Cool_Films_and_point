@@ -1,0 +1,151 @@
+/* =================================================================
+   ПРОФЕССИОНАЛЬНЫЙ СТИЛЬ ДЛЯ ОКНА ФИЛЬТРОВ (NETFLIX V3)
+   ================================================================= */
+
+/* --- УЛУЧШЕНИЕ: Новый фон с градиентом серого и красного --- */
+.filters-view {
+    -fx-background-color: radial-gradient(
+            focus-angle 45deg, focus-distance 20%, center 50% 50%, radius 100%,
+            #4d0000 0%, #1a1a1a 40%, #141414 100%
+    );
+}
+
+/* --- ШАПКА (HEADER) --- */
+.header-section {
+    -fx-padding: 24px 30px;
+    -fx-background-color: rgba(16, 16, 16, 0.8); /* Полупрозрачный для эффекта глубины */
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 15, 0, 0, 5);
+}
+
+.preferences-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+}
+
+.preferences-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #b3b3b3;
+    -fx-padding-top: 4px;
+}
+
+/* --- ОСНОВНОЙ КОНТЕНТ --- */
+.content-section {
+    -fx-padding: 25px;
+    -fx-background-color: transparent;
+}
+
+.content-scroll {
+    -fx-background-color: transparent;
+}
+
+/* --- ГРУППЫ НАСТРОЕК (КАРТОЧКИ) --- */
+.preference-group {
+    -fx-background-color: rgba(30, 30, 30, 0.8);
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+.preference-group:hover {
+    -fx-border-color: rgba(229, 9, 20, 0.6);
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: white;
+}
+
+.description-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #a0a0a0;
+    -fx-wrap-text: true;
+}
+
+/* --- УЛУЧШЕННЫЕ ЭЛЕМЕНТЫ УПРАВЛЕНИЯ --- */
+
+/* УЛУЧШЕНИЕ: Единый стиль кнопок-жанров (Прощай, зеленый!) */
+.genre-toggle-button {
+    -fx-background-color: #333333;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 20px; /* Форма "таблетки" */
+    -fx-border-width: 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+.genre-toggle-button:hover {
+    -fx-background-color: #454545;
+}
+.genre-toggle-button:selected {
+    -fx-background-color: #E50914; /* Фирменный красный Netflix */
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.4), 10, 0, 0, 2);
+}
+
+/* УЛУЧШЕНИЕ: Полностью кастомная полоса прокрутки (Scrollbar) */
+.scroll-pane { -fx-background-color: transparent; }
+.scroll-pane > .viewport { -fx-background-color: transparent; }
+.scroll-pane .scroll-bar:vertical { -fx-background-color: transparent; -fx-padding: 2; -fx-pref-width: 10; }
+.scroll-pane .scroll-bar:vertical .thumb { -fx-background-color: #555555; -fx-background-radius: 5px; }
+.scroll-pane .scroll-bar:vertical:hover .thumb { -fx-background-color: #E50914; }
+.scroll-pane .scroll-bar:vertical .increment-button, .scroll-pane .scroll-bar:vertical .decrement-button { -fx-padding: 0; }
+.scroll-pane .corner { -fx-background-color: transparent; }
+
+/* УЛУЧШЕНИЕ: Слайдер */
+.slider .track { -fx-background-color: #444; -fx-pref-height: 4px; -fx-background-radius: 2px; }
+.slider .thumb { -fx-background-color: #ccc; -fx-padding: 6px; }
+.slider:hover .thumb { -fx-background-color: #E50914; -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.5), 10, 0, 0, 0); }
+
+.rating-label { -fx-text-fill: #888; -fx-font-size: 12px; }
+
+/* УЛУЧШЕНИЕ: Чекбокс */
+.check-box { -fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand; }
+.check-box .box { -fx-background-color: #333; -fx-border-radius: 4px; -fx-pref-width: 18; -fx-pref-height: 18;}
+.check-box:hover .box { -fx-border-color: #777; }
+.check-box:selected .mark { -fx-background-color: #E50914; -fx-shape: "M13.5,0 L5,8.5 L1.5,5 L0,6.5 L5,11.5 L15,1.5 L13.5,0 Z";}
+
+/* --- ПОДВАЛ (FOOTER) --- */
+.footer-section {
+    -fx-padding: 15px 30px;
+    -fx-background-color: rgba(16, 16, 16, 0.8);
+    -fx-border-color: rgba(255, 255, 255, 0.1) transparent transparent transparent;
+    -fx-border-width: 1.5px;
+}
+
+.button-container { -fx-alignment: CENTER_RIGHT; }
+.status-label { -fx-text-fill: #888; -fx-padding-bottom: 8px; }
+
+/* --- УЛУЧШЕНИЕ: "Живые" кнопки с правильными эффектами --- */
+.action-button {
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 12px 24px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);
+}
+.action-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0, 0, 4);
+}
+.action-button:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 2);
+}
+
+.save-button {
+    -fx-background-color: #E50914; /* Фирменный красный */
+    -fx-text-fill: white;
+}
+.save-button:hover { -fx-background-color: #f40612; }
+
+.cancel-button {
+    -fx-background-color: #4d4d4d;
+    -fx-text-fill: white;
+}
+.cancel-button:hover { -fx-background-color: #666; }

@@ -1,0 +1,329 @@
+/* Netflix-Themed Styles (formerly simple-styles.css) */
+
+/* ===== ОСНОВНЫЕ СТИЛИ ===== */
+.root {
+    -fx-font-family: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #000000; /* Netflix Black */
+}
+
+/* ===== ОБЩИЕ КНОПКИ (Netflix Style) ===== */
+.button {
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 12px 24px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.3px;
+    -fx-transition: all 0.2s ease;
+    -fx-background-color: rgba(80, 80, 80, 0.8); /* Default dark grey button */
+    -fx-border-color: rgba(100, 100, 100, 0.5);
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(100, 100, 100, 0.9);
+    -fx-border-color: rgba(120, 120, 120, 0.7);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(70, 70, 70, 0.8);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Основная кнопка (Netflix Red) */
+.button.netflix-button-primary {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 14px 28px; /* Slightly larger padding for primary */
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 10, 0, 0, 3);
+    -fx-border-width: 0; /* No border for primary red button */
+}
+
+.button.netflix-button-primary:hover {
+    -fx-background-color: #f40612;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.5), 15, 0, 0, 4);
+}
+
+.button.netflix-button-primary:pressed {
+    -fx-background-color: #cc0811;
+}
+
+/* Специализированные кнопки (можно использовать .netflix-button-primary или стандартный .button) */
+.button.logout-button {
+    -fx-background-color: #E50914; /* Netflix Red for logout */
+}
+.button.logout-button:hover {
+    -fx-background-color: #f40612;
+}
+
+.button.recommend-button {
+    /* Используем стиль netflix-button-primary */
+}
+
+.button.preferences-button {
+    /* Используем стандартный стиль .button или создаем новый */
+     -fx-background-color: rgba(60, 60, 60, 0.8);
+}
+.button.preferences-button:hover {
+     -fx-background-color: rgba(80, 80, 80, 0.9);
+}
+
+.button.mark-watched-button {
+    /* Используем стандартный стиль .button */
+}
+
+.button.clear-button {
+    -fx-background-color: rgba(50, 50, 50, 0.7);
+}
+.button.clear-button:hover {
+    -fx-background-color: rgba(70, 70, 70, 0.8);
+}
+
+.button.rate-button {
+    /* Можно сделать его похожим на primary или использовать стандартный */
+}
+
+/* ===== ПОЛЯ ВВОДА (Netflix Style) ===== */
+.text-field {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 15px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+    -fx-transition: all 0.2s ease;
+}
+
+.text-field:focused {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-border-color: #E50914; /* Netflix red border on focus */
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+/* ===== COMBO-BOX (Netflix Style) ===== */
+.combo-box {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-text-fill: white; /* This might not directly style the selected item text, see .combo-box .list-cell */
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 15px;
+    -fx-padding: 10px 12px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #E50914;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #181818; /* Dark background for dropdown items */
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-padding: 10px 15px;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #E50914; /* Netflix red for selected item */
+    -fx-text-fill: white;
+}
+
+/* ===== LIST-VIEW (Netflix Style) ===== */
+.list-view {
+    -fx-background-color: #101010; /* Very dark background */
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-padding: 12px 15px;
+    -fx-border-color: rgba(255, 255, 255, 0.05); /* Subtle separator */
+    -fx-border-width: 0 0 1px 0;
+    -fx-font-size: 14px;
+}
+
+.list-cell:selected {
+    -fx-background-color: rgba(229, 9, 20, 0.3); /* Semi-transparent red selection */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+/* ===== TEXT-AREA (Netflix Style) ===== */
+.text-area {
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+    -fx-wrap-text: true;
+}
+
+.text-area .content { /* Ensure text area content also has dark background */
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+}
+
+.text-area:focused {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-border-color: #E50914;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+/* ===== LABELS (Netflix Style) ===== */
+.label {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.label.app-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #E50914; /* Netflix Red */
+    -fx-font-family: "Inter Bold", "Helvetica Neue", "Arial Black", sans-serif;
+    -fx-letter-spacing: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 8, 0, 0, 2);
+}
+
+.label.section-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-padding: 10px 0;
+}
+
+/* ===== STATUS LABEL (Netflix Style) ===== */
+#statusLabel {
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-font-size: 12px;
+}
+
+/* ===== PROGRESS INDICATOR (Netflix Style) ===== */
+.progress-indicator {
+    -fx-progress-color: #E50914;
+}
+
+.progress-indicator .track {
+    -fx-background-color: rgba(40, 40, 40, 0.6);
+    -fx-background-radius: 20px;
+}
+
+.progress-indicator .bar {
+    -fx-background-color: #E50914;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.4), 8, 0, 0, 2);
+}
+
+/* ===== USER INFO LABEL (Netflix Style) ===== */
+#userInfoLabel {
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-font-weight: 500;
+}
+
+/* ===== CONTAINERS (Netflix Style) ===== */
+.vbox, .hbox {
+    /* Default spacing can be set here if needed, or per instance in FXML */
+}
+
+.vbox.main-container {
+    -fx-background-color: #080808; /* Slightly off-black for main content area if distinct from root */
+    -fx-padding: 20px;
+}
+
+/* ===== IMAGE VIEW (Netflix Style) ===== */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5); /* General shadow for images */
+    -fx-background-radius: 4px; /* If images have backgrounds or borders */
+}
+
+/* Movie status indicators - can be text or icons styled accordingly */
+.movie-watched {
+    -fx-text-fill: #4CAF50; /* Green for watched - consider a more Netflix-y icon/color */
+}
+
+.movie-recommended {
+    -fx-text-fill: #E50914; /* Red for recommended */
+}
+
+.movie-rated {
+    -fx-text-fill: #FFC107; /* Yellow for rated - consider a more Netflix-y icon/color */
+}
+
+/* ===== SCROLLBARS (Netflix Style) ===== */
+.scroll-bar {
+    -fx-background-color: rgba(20, 20, 20, 0.8);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(229, 9, 20, 0.7); /* Netflix Red thumb */
+    -fx-background-insets: 2;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #E50914; /* Solid red on hover */
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " "; /* Hide default arrows if custom styling is preferred or not needed */
+    -fx-padding: 0;
+}

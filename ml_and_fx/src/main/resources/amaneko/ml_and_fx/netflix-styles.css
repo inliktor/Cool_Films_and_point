@@ -1,0 +1,489 @@
+/* Netflix-стиль дизайн для приложения рекомендаций фильмов (Улучшенная версия с анимациями) */
+
+/* ===== ОСНОВНЫЕ СТИЛИ ===== */
+.root {
+    -fx-font-family: "Inter", "Segoe UI", system-ui, "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #000000;
+}
+
+/* ===== ФОН И КОНТЕЙНЕРЫ ===== */
+.netflix-background {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #1a0000 0%, #000000 100%);
+    -fx-background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.netflix-card {
+    -fx-background-color: rgba(20, 20, 20, 0.95);
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 25, 0, 0, 8);
+    -fx-padding: 30px 38px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-max-width: 380px;
+    -fx-min-width: 360px;
+}
+
+/* ===== ЗАГОЛОВКИ И ТЕКСТ ===== */
+.netflix-logo {
+    -fx-font-size: 42px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #E50914;
+    -fx-font-family: "Inter Bold", "Helvetica Neue", "Arial Black", sans-serif;
+    -fx-letter-spacing: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 8, 0, 0, 2);
+}
+
+.netflix-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-font-weight: 400;
+    -fx-letter-spacing: 0.5px;
+}
+
+/* ===== КНОПКИ ВКЛАДОК ===== */
+.netflix-tabs {
+    -fx-background-color: rgba(40, 40, 40, 0.6);
+    -fx-background-radius: 12px;
+    -fx-padding: 4px;
+}
+
+.netflix-tab {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 14px 20px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-letter-spacing: 0.3px;
+    /* УЛУЧШЕНИЕ: Добавляем эффект тени для анимации */
+    -fx-effect: null;
+}
+
+.netflix-tab:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.netflix-tab-active {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.4), 8, 0, 0, 2);
+}
+
+.netflix-tab-active:hover {
+    -fx-background-color: #f40612;
+}
+
+/* ===== ПОЛЯ ВВОДА ===== */
+.netflix-input {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-font-size: 16px;
+    -fx-padding: 16px 20px;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+    -fx-pref-width: 300px;
+    /* УЛУЧШЕНИЕ: Обнуляем эффект для плавного перехода */
+    -fx-effect: null;
+}
+
+.netflix-input:hover {
+    -fx-border-color: rgba(200, 200, 200, 0.7);
+}
+
+.netflix-input:focused {
+    -fx-border-color: #E50914;
+    -fx-border-width: 1.5px;
+    /* УЛУЧШЕНИЕ: Добавляем эффект "свечения" при фокусе для анимации */
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 15, 0, 0, 0);
+}
+
+/* ===== ОСНОВНЫЕ КНОПКИ ===== */
+.netflix-button-primary {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-padding: 16px 20px;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 3);
+    -fx-letter-spacing: 0.5px;
+    -fx-pref-width: 300px;
+}
+
+.netflix-button-primary:hover {
+    -fx-background-color: #f40612;
+    /* УЛУЧШЕНИЕ: Анимация "приподнимания" кнопки через усиление тени */
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.4), 20, 0, 0, 5);
+}
+
+.netflix-button-primary:pressed {
+    -fx-background-color: #cc0811;
+    /* УЛУЧШЕНИЕ: Анимация "вдавливания" кнопки через уменьшение тени */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+}
+
+.netflix-button-primary:disabled {
+    -fx-background-color: rgba(80, 80, 80, 0.6);
+    -fx-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-effect: none;
+}
+
+/* ===== КОНТЕЙНЕРЫ ФОРМ ===== */
+.netflix-form {
+    /* УЛУЧШЕНИЕ: Анимация плавного появления/исчезновения */
+    -fx-opacity: 1.0;
+}
+.netflix-form.hidden {
+    -fx-opacity: 0.0;
+}
+
+/* ===== СООБЩЕНИЯ ===== */
+.netflix-message-container {
+    -fx-alignment: center;
+}
+
+.message-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.netflix-message-error {
+    -fx-text-fill: #ff6b6b;
+    -fx-background-color: rgba(255, 107, 107, 0.1);
+    -fx-border-color: rgba(255, 107, 107, 0.3);
+}
+
+.netflix-message-success {
+    -fx-text-fill: #51cf66;
+    -fx-background-color: rgba(81, 207, 102, 0.1);
+    -fx-border-color: rgba(81, 207, 102, 0.3);
+}
+
+/* ===== ПРОГРЕСС ИНДИКАТОР ===== */
+.netflix-progress {
+    -fx-progress-color: #E50914;
+}
+
+/* ===== СТИЛИ ДЛЯ ОКНА НАСТРОЕК (PREFERENCES-VIEW) ===== */
+
+/* Общий контейнер для окна настроек */
+.preferences-view-container {
+    -fx-background-color: #141414; /* Темный фон Netflix */
+    -fx-padding: 25px;
+}
+
+/* Заголовок окна настроек */
+.preferences-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+    -fx-padding-bottom: 5px;
+    -fx-border-color: #E50914; /* Красная линия под заголовком */
+    -fx-border-width: 0 0 3px 0;
+    -fx-alignment: center-left;
+}
+
+/* Подзаголовок/описание в шапке */
+.preferences-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #b3b3b3; /* Светло-серый текст */
+    -fx-padding-bottom: 20px;
+}
+
+/* Секции настроек (группы) */
+.preference-group {
+    -fx-background-color: rgba(30, 30, 30, 0.7); /* Полупрозрачный темный фон для группы */
+    -fx-padding: 20px;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+/* Заголовки секций (например, "Предпочитаемые жанры") */
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: white;
+    -fx-padding-bottom: 8px;
+}
+
+/* Описания под заголовками секций */
+.section-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #a0a0a0; /* Более тусклый серый */
+    -fx-padding-bottom: 12px;
+}
+
+/* Слайдер */
+.rating-slider .track {
+    -fx-background-color: #333333; /* Темно-серый трек */
+    -fx-background-radius: 3px;
+    -fx-pref-height: 8px;
+}
+
+.rating-slider .thumb {
+    -fx-background-color: #E50914; /* Красный ползунок */
+    -fx-background-radius: 10px;
+    -fx-padding: 8px;
+}
+
+.rating-slider:focused .thumb {
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.5), 10, 0, 0, 0);
+}
+
+/* Чекбокс */
+.preference-checkbox {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+
+.preference-checkbox .box {
+    -fx-background-color: rgba(50, 50, 50, 0.8);
+    -fx-border-color: #505050;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}
+
+.preference-checkbox:selected .box .mark {
+    -fx-background-color: #E50914; /* Красная галочка */
+}
+
+.preference-checkbox:hover .box {
+    -fx-border-color: #E50914;
+}
+
+/* ListView для жанров */
+.genre-list {
+    -fx-background-color: #222222; /* Темный фон для списка */
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.genre-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0; /* Светлый текст для элементов списка */
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-border-color: transparent transparent #303030 transparent; /* Разделитель */
+    -fx-border-width: 1px;
+}
+
+.genre-list .list-cell:filled:selected, .genre-list .list-cell:filled:selected:hover {
+    -fx-background-color: #E50914; /* Красный фон для выбранного элемента */
+    -fx-text-fill: white;
+}
+
+.genre-list .list-cell:filled:hover {
+    -fx-background-color: rgba(229, 9, 20, 0.3); /* Полупрозрачный красный при наведении */
+    -fx-text-fill: white;
+}
+
+/* ScrollPane и ScrollBar (если используется) */
+.content-scroll {
+    -fx-background-color: transparent; /* Фон ScrollPane */
+}
+
+.content-scroll .scroll-bar:vertical, .content-scroll .scroll-bar:horizontal {
+    -fx-background-color: #181818; /* Фон скроллбара */
+    -fx-background-radius: 5px;
+}
+
+.content-scroll .scroll-bar .thumb {
+    -fx-background-color: #E50914; /* Красный ползунок скроллбара */
+    -fx-background-radius: 5px;
+}
+
+.content-scroll .scroll-bar .increment-button, .content-scroll .scroll-bar .decrement-button {
+    -fx-background-color: #303030;
+    -fx-background-radius: 5px;
+}
+
+.content-scroll .scroll-bar .increment-arrow, .content-scroll .scroll-bar .decrement-arrow {
+    -fx-shape: " "; /* Убираем стандартные стрелки, можно заменить на SVG иконки */
+    -fx-padding: 3px;
+}
+
+
+/* Кнопки Сохранить/Отмена - используем существующие .netflix-button-primary и добавляем .netflix-button-secondary */
+.netflix-button-secondary {
+    -fx-background-color: #4d4d4d; /* Серый фон для вторичной кнопки */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-padding: 14px 20px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.3px;
+}
+
+.netflix-button-secondary:hover {
+    -fx-background-color: #666666;
+}
+
+.netflix-button-secondary:pressed {
+    -fx-background-color: #333333;
+}
+
+/* Контейнер для кнопок внизу */
+.button-bar {
+    -fx-alignment: center-right; /* Кнопки справа */
+    -fx-padding: 15px 0px 5px 0px; /* Отступы для контейнера кнопок */
+}
+
+/* Текст статуса */
+.status-label { /* Переименовал из .status для ясности, если используется в FXML */
+    -fx-font-size: 13px;
+    -fx-text-fill: #888888; /* Тусклый серый для статуса */
+    -fx-padding: 8px 0 0 0;
+    -fx-alignment: center-right;
+}
+
+/* Общие стили для VBox в top, center, bottom */
+.header-section, .footer-section {
+    -fx-padding: 15px 25px; /* Общие отступы для шапки и подвала */
+    -fx-background-color: #101010; /* Чуть светлее основного фона для выделения */
+}
+.content-section {
+     -fx-padding: 20px; /* Отступы для основного контента */
+}
+
+/* ===== ЖАНРОВЫЕ КНОПКИ-ПЕРЕКЛЮЧАТЕЛИ (PREFERENCES-VIEW) ===== */
+.genre-toggle-button {
+    -fx-background-color: #333333; /* Темно-серый фон */
+    -fx-text-fill: #cccccc; /* Светло-серый текст */
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #505050;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.genre-toggle-button:hover {
+    -fx-background-color: #454545; /* Чуть светлее при наведении */
+    -fx-border-color: #707070;
+}
+
+.genre-toggle-button:selected {
+    -fx-background-color: #E50914; /* Netflix красный для выбранного */
+    -fx-text-fill: white;
+    -fx-border-color: #B00710; /* Темнее красный для рамки выбранного */
+}
+
+.genre-toggle-button:selected:hover {
+    -fx-background-color: #f40612; /* Ярче красный при наведении на выбранный */
+}
+
+/* Применяем стили напрямую к ToggleButton из FlowPane */
+.genre-flow-pane .toggle-button {
+    -fx-background-color: #333333; /* Темно-серый фон */
+    -fx-text-fill: #cccccc; /* Светло-серый текст */
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #505050;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.genre-flow-pane .toggle-button:hover {
+    -fx-background-color: #454545; /* Чуть светлее при наведении */
+    -fx-border-color: #707070;
+}
+
+.genre-flow-pane .toggle-button:selected {
+    -fx-background-color: #E50914; /* Netflix красный для выбранного */
+    -fx-text-fill: white;
+    -fx-border-color: #B00710; /* Темнее красный для рамки выбранного */
+}
+
+.genre-flow-pane .toggle-button:selected:hover {
+    -fx-background-color: #f40612; /* Ярче красный при наведении на выбранный */
+}
+
+/* Устраняем прозрачность фона для ScrollPane в жанрах */
+.genre-scroll-pane {
+    -fx-background-color: rgba(30, 30, 30, 0.7);
+    -fx-background: rgba(30, 30, 30, 0.7);
+    -fx-border-color: #333333;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+.genre-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Применяем стили к слайдеру напрямую */
+.rating-slider .track {
+    -fx-background-color: #333333;
+    -fx-background-radius: 3px;
+}
+
+.rating-slider .thumb {
+    -fx-background-color: #E50914;
+    -fx-background-radius: 10px;
+}
+
+/* Цвет текста для всех Label внутри экрана настроек */
+.preferences-view-container .label {
+    -fx-text-fill: white;
+}
+
+/* ===== NETFLIX СТИЛЬ ДЛЯ ДИАЛОГОВЫХ ОКОН ===== */
+.netflix-alert {
+    -fx-background-color: #141414;
+}
+
+.netflix-alert > *.button-bar > *.container {
+    -fx-background-color: #141414;
+}
+
+.netflix-alert > *.label.content {
+    -fx-font-size: 14px;
+    -fx-text-fill: #e0e0e0;
+}
+
+.netflix-alert:header *.header-panel {
+    -fx-background-color: #1a1a1a;
+}
+
+.netflix-alert:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+
+.netflix-alert .button {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+}
+
+.netflix-alert .button:hover {
+    -fx-background-color: #f40612;
+}
+
+.netflix-alert .button:pressed {
+    -fx-background-color: #cc0811;
+}

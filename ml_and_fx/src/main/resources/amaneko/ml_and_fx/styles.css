@@ -1,0 +1,346 @@
+/* Netflix-Themed Styles (formerly styles.css) */
+
+/* ===== ОСНОВНЫЕ СТИЛИ ===== */
+.root {
+    -fx-font-family: "Inter", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #000000; /* Netflix Black */
+}
+
+/* ===== ТЕКСТОВЫЕ ЭЛЕМЕНТЫ (Netflix Style) ===== */
+.app-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #E50914; /* Netflix Red */
+    -fx-font-family: "Inter Bold", "Helvetica Neue", "Arial Black", sans-serif;
+    -fx-letter-spacing: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 8, 0, 0, 2);
+}
+
+.app-header {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-padding: 10px 0;
+}
+
+.section-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #E50914; /* Netflix Red for section emphasis */
+    -fx-padding: 8px 0;
+}
+
+.field-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-font-size: 13px;
+}
+
+.form-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: rgba(255, 255, 255, 0.95);
+    -fx-padding-bottom: 15px;
+}
+
+.panel-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-padding: 10px 0 15px 0;
+}
+
+.user-info {
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-font-weight: 500;
+}
+
+.status-text {
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-font-size: 12px;
+}
+
+.version-info {
+    -fx-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-size: 11px;
+}
+
+/* ===== КНОПКИ (Netflix Style) ===== */
+.button { /* General button style */
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-padding: 12px 24px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+    -fx-letter-spacing: 0.3px;
+    -fx-transition: all 0.2s ease;
+    -fx-background-color: rgba(80, 80, 80, 0.8); /* Default dark grey button */
+    -fx-border-color: rgba(100, 100, 100, 0.5);
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(100, 100, 100, 0.9);
+    -fx-border-color: rgba(120, 120, 120, 0.7);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.button:pressed {
+    -fx-background-color: rgba(70, 70, 70, 0.8);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.primary-button, .button.netflix-button-primary /* Ensure .primary-button also gets Netflix red */
+{
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 14px 28px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.3), 10, 0, 0, 3);
+    -fx-border-width: 0;
+}
+
+.primary-button:hover, .button.netflix-button-primary:hover {
+    -fx-background-color: #f40612;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.5), 15, 0, 0, 4);
+}
+
+.primary-button:pressed, .button.netflix-button-primary:pressed {
+    -fx-background-color: #cc0811;
+}
+
+.secondary-button {
+    /* Uses the default .button style or can be customized further if needed */
+    /* Example: slightly lighter grey or different border */
+    -fx-background-color: rgba(60, 60, 60, 0.85);
+    -fx-border-color: rgba(90,90,90,0.6);
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(75, 75, 75, 0.9);
+    -fx-border-color: rgba(105,105,105,0.7);
+}
+
+.logout-button {
+    -fx-background-color: #E50914; /* Netflix Red for logout */
+    -fx-padding: 10px 20px; /* Adjusted padding */
+}
+
+.logout-button:hover {
+    -fx-background-color: #f40612;
+}
+
+.tab-button { /* For tab-like controls if not using .netflix-tab from login screen */
+    -fx-background-color: rgba(40, 40, 40, 0.7);
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-padding: 12px 22px;
+}
+
+.tab-button.active-tab {
+    -fx-background-color: #E50914;
+    -fx-text-fill: white;
+}
+
+.tab-button:hover {
+    -fx-background-color: rgba(55, 55, 55, 0.8);
+}
+
+/* ===== ПОЛЯ ВВОДА (Netflix Style) ===== */
+.custom-field, .search-field, .text-field /* Apply to .text-field as well */
+{
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4);
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 15px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+    -fx-transition: all 0.2s ease;
+}
+
+.custom-field:focused, .search-field:focused, .text-field:focused {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-border-color: #E50914; /* Netflix red border on focus */
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+/* ===== СПИСКИ И ОБЛАСТИ ТЕКСТА (Netflix Style) ===== */
+.movie-list, .list-view /* Apply to .list-view as well */
+{
+    -fx-background-color: #101010; /* Very dark background */
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.movie-list .list-cell, .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-padding: 12px 15px;
+    -fx-border-color: rgba(255, 255, 255, 0.05); /* Subtle separator */
+    -fx-border-width: 0 0 1px 0;
+    -fx-font-size: 14px;
+}
+
+.movie-list .list-cell:selected, .list-view .list-cell:selected {
+    -fx-background-color: rgba(229, 9, 20, 0.3); /* Semi-transparent red selection */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.movie-list .list-cell:hover, .list-view .list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+}
+
+.movie-details, .text-area /* Apply to .text-area as well */
+{
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.4); /* For prompt text if applicable */
+    -fx-font-family: "Inter", "Helvetica Neue", "Arial", sans-serif; /* Consistent font */
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(80, 80, 80, 0.6);
+    -fx-border-width: 1px;
+    -fx-wrap-text: true;
+}
+
+.movie-details .content, .text-area .content { /* Ensure content background for text areas */
+    -fx-background-color: rgba(30, 30, 30, 0.9);
+}
+
+.movie-details:focused, .text-area:focused {
+    -fx-background-color: rgba(40, 40, 40, 0.9);
+    -fx-border-color: #E50914;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.2), 10, 0, 0, 0);
+}
+
+.details-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ===== ПАНЕЛИ (Netflix Style) ===== */
+.results-panel, .details-panel {
+    -fx-background-color: #080808; /* Slightly off-black */
+    -fx-padding: 15px;
+    -fx-background-radius: 8px;
+}
+
+.main-split-pane {
+    -fx-background-color: #000000;
+}
+
+.main-split-pane .split-pane-divider {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 0 1px 0 1px; /* Thinner divider */
+}
+
+/* ===== СТАТУС БАР (Netflix Style) ===== */
+.status-bar {
+    -fx-background-color: #101010;
+    -fx-padding: 8px 15px;
+    -fx-border-width: 1px 0 0 0;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ (Netflix Style) ===== */
+.user-spinner, .loading-indicator, .progress-indicator /* General progress styling */
+{
+    -fx-progress-color: #E50914;
+}
+
+.user-spinner .track, .loading-indicator .track, .progress-indicator .track {
+    -fx-background-color: rgba(40, 40, 40, 0.6);
+    -fx-background-radius: 20px;
+}
+
+.user-spinner .bar, .loading-indicator .bar, .progress-indicator .bar {
+    -fx-background-color: #E50914;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 9, 20, 0.4), 8, 0, 0, 2);
+}
+
+.tab-container { /* For general tab containers if needed */
+    -fx-background-color: #080808;
+    -fx-padding: 10px;
+}
+
+.form-content { /* For content within forms */
+    -fx-spacing: 15px;
+}
+
+.message-label { /* General message label */
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.message-label.error-message {
+    -fx-text-fill: #ff6b6b;
+    -fx-background-color: rgba(255, 107, 107, 0.1);
+    -fx-border-color: rgba(255, 107, 107, 0.3);
+}
+
+.message-label.success-message {
+    -fx-text-fill: #51cf66;
+    -fx-background-color: rgba(81, 207, 102, 0.1);
+    -fx-border-color: rgba(81, 207, 102, 0.3);
+}
+
+/* ===== СКРОЛЛБАРЫ (Netflix Style) ===== */
+.scroll-bar {
+    -fx-background-color: rgba(20, 20, 20, 0.8);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(229, 9, 20, 0.7); /* Netflix Red thumb */
+    -fx-background-insets: 2;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #E50914; /* Solid red on hover */
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " "; /* Hide default arrows */
+    -fx-padding: 0;
+}
+
+/* Remove login-container if it's specific to the old login screen and not general */
+/* .login-container { ... } */
