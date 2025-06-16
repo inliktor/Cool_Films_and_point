@@ -20,11 +20,13 @@ import amaneko.ml_and_fx.model.Movie;
 import amaneko.ml_and_fx.model.UserPreferences;
 import amaneko.ml_and_fx.model.UserRating;
 
-
+/**
+ * Простой и надежный сервис рекомендаций фильмов
+ */
 public class SimpleMovieRecommendationService {
 
     private final Connection dbConnection;
-    private final MLService mlService; 
+    private final MLService mlService; // Changed type to MLService
     private int currentUserId = 1; // ID текущего пользователя
     
     // Кэш предпочтений пользователей
@@ -33,17 +35,17 @@ public class SimpleMovieRecommendationService {
     // Отслеживание показанных фильмов (для текущей сессии, основной источник - DB)
     private final Map<Integer, Set<Integer>> shownMoviesCache = new HashMap<>();
 
-
+    // Updated constructor
     public SimpleMovieRecommendationService() {
         this.dbConnection = connectToDatabase();
-        this.mlService = new SimpleMLService(this); 
-        createTablesIfNotExist();
+        this.mlService = new SimpleMLService(this); // Pass self for movie description filtering
+        // Удалён вызов createTablesIfNotExist();
     }
 
-
+    // New method to establish database connection
     private Connection connectToDatabase() {
         try {
-    
+            // Database connection details (consider making these configurable)
             String dbUrl = "jdbc:postgresql://localhost:15432/postgres";
             String dbUser = "zwloader";
             String dbPassword = "0010085070Pgsql";
@@ -57,7 +59,7 @@ public class SimpleMovieRecommendationService {
         }
     }
     
-
+    // Getter for the database connection
     public Connection getDbConnection() {
         return dbConnection;
     }
@@ -161,7 +163,7 @@ public class SimpleMovieRecommendationService {
 
         } else {
             System.out.println("🔥 У пользователя нет предпочтительных жанров. Генерируем общие рекомендации.");
-
+            // 1. Пробуем получить ML рекомендации (общие)
             if (mlService.isModelLoaded()) {
                 try {
                     List<Integer> movieIds = mlService.getRecommendations(userId, count * 8); 
@@ -231,7 +233,16 @@ public class SimpleMovieRecommendationService {
         return recommendations;
     }
     
-
+    /**
+     * ML-основанные рекомендации (убраны, так как включены в getRecommendationsForUser)
+     */
+    // private List<Movie> getMLBasedRecommendations(int userId, int count) {
+    //     ...
+    // }
+    
+    /**
+     * Персональные рекомендации на основе жанров и рейтингов
+     */
     public List<Movie> getPersonalizedRecommendations(int userId, int count) {
         List<Movie> recommendations = new ArrayList<>();
         Set<Integer> watchedMovies = getShownMovies(userId); // Теперь из БД и кэша
@@ -303,6 +314,8 @@ public class SimpleMovieRecommendationService {
                     recommendations = executeMovieQuery(stmt);
                     
                     if (!recommendations.isEmpty()) {
+                        // Mark as shown in current session, DB persistence is through recordMovieView
+                        // markMoviesAsShown(userId, recommendations); // Убрано, так как показано в getRecommendationsForUser
                     }
                     
                     System.out.println("📊 Персональные рекомендации: " + recommendations.size());
@@ -371,6 +384,7 @@ public class SimpleMovieRecommendationService {
     
     /**
      * Объединенный метод для всех действий с фильмом (просмотр, оценка, публикация)
+     * Заменяет дублированную логику из saveUserRating, markMovieAsWatched, и контроллера
      */
     public boolean processMovieAction(int userId, int movieId, MovieAction action, Double rating, String reviewText) {
         System.out.println("🎬 Обрабатываем действие с фильмом: " + action + " (пользователь=" + userId + ", фильм=" + movieId + ")");
@@ -454,7 +468,9 @@ public class SimpleMovieRecommendationService {
             // Обновляем историю просмотров в ML
             mlService.updateViewingHistory(userId, movieId);
             
-
+            // Обновляем предпочтения пользователя, если есть данные о фильме
+            // Параметр rating резервируется для будущих ML-функций, которые могут
+            // учитывать оценку при обновлении предпочтений
             Movie movie = getMovieById(movieId);
             if (movie != null) {
                 updateUserPreferences(userId, movie);
@@ -671,7 +687,12 @@ public class SimpleMovieRecommendationService {
         
         UserPreferences preferences = new UserPreferences(userId);
         
-
+        // Получаем любимые жанры на основе высоких оценок ТОЛЬКО если пользователь ещё не выбирал жанры вручную
+        // Эта логика должна быть перенесена в PreferencesController или явно активирована там.
+        // Здесь мы просто загружаем сохраненные предпочтения или создаем дефолтные.
+        // ВАЖНО: Если жанры выбираются вручную, они должны сохраняться в БД в таблице user_preferences_genres
+        // Пока этой таблицы нет, предпочитаемые жанры будут вычисляться на лету или браться из UI.
+        // Для демонстрации, оставлю вычисление из оценок, если жанры не заданы.
         String genreQuery = """
             SELECT g.name, AVG(ur.rating) as avg_rating, COUNT(*) as count
             FROM user_ratings ur
@@ -710,7 +731,10 @@ public class SimpleMovieRecommendationService {
      * Сохранить предпочтения пользователя
      */
     public void saveUserPreferences(UserPreferences preferences) {
-
+        // Здесь также нужно сохранять жанры в БД, если они были выбраны вручную
+        // В текущей реализации UserPreferences не сохраняются в БД, только в кэш.
+        // Для полной реализации нужно добавить таблицу user_preferences и логику сохранения/загрузки.
+        userPreferencesCache.put(preferences.getUserId(), preferences);
         System.out.println("✅ Предпочтения сохранены в кэш");
     }
     
@@ -1082,52 +1106,6 @@ public class SimpleMovieRecommendationService {
     }
     
     /**
-     * Создает необходимые таблицы, если они не существуют
-     */
-    private void createTablesIfNotExist() {
-        try {
-            // Создаем таблицу просмотров фильмов, если она не существует
-            String createUserViewsTable = """
-                CREATE TABLE IF NOT EXISTS user_views (
-                    id SERIAL PRIMARY KEY,
-                    user_id INTEGER NOT NULL,
-                    movie_id INTEGER NOT NULL,
-                    view_start_time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-                    view_duration INTEGER,
-                    completed BOOLEAN DEFAULT FALSE,
-                    watch_percentage NUMERIC(5,2),
-                    device VARCHAR(50),
-                    session_id VARCHAR(100),
-                    UNIQUE(user_id, movie_id)
-                )
-                """;
-            
-            // Создаем таблицу пользовательских предпочтений, если она не существует  
-            String createUserPreferencesTable = """
-                CREATE TABLE IF NOT EXISTS user_preferences (
-                    user_id INTEGER PRIMARY KEY,
-                    preferred_genres TEXT,
-                    min_rating REAL DEFAULT 0.0,
-                    include_watched_movies BOOLEAN DEFAULT FALSE,
-                    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-                    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-                )
-                """;
-                
-            try (PreparedStatement stmt1 = dbConnection.prepareStatement(createUserViewsTable);
-                 PreparedStatement stmt2 = dbConnection.prepareStatement(createUserPreferencesTable)) {
-                
-                stmt1.execute();
-                stmt2.execute();
-                System.out.println("✅ Таблицы user_views и user_preferences готовы");
-                
-            }
-        } catch (SQLException e) {
-            System.err.println("❌ Ошибка создания таблиц: " + e.getMessage());
-        }
-    }
-    
-    /**
      * Записывает фильм как просмотренный в user_views
      */
     public void recordMovieView(int userId, int movieId) {
@@ -1269,6 +1247,7 @@ public class SimpleMovieRecommendationService {
     }
 
     public List<Movie> searchMovie(String searchQuery) {
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'searchMovie'");
     }
 }
