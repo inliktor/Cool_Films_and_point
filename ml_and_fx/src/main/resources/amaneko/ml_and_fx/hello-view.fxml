@@ -28,6 +28,7 @@
          <HBox spacing="10" alignment="CENTER_LEFT">
             <Label text="⚙️ Настройки:" styleClass="section-title" />
             <Button fx:id="preferencesButton" text="Настроить предпочтения" onAction="#handlePreferences" styleClass="preferences-button" />
+            <Button fx:id="favoritesButton" text="Избранное" onAction="#handleFavorites" styleClass="favorites-button" />
          </HBox>
          
          <!-- Movie Rating -->
@@ -65,6 +66,7 @@
                <Label text="🎭 Информация о фильме:" styleClass="section-title" />
                <Region HBox.hgrow="ALWAYS" />
                <Button fx:id="markWatchedButton" text="✅ Отметить как просмотренное" onAction="#handleMarkWatched" styleClass="mark-watched-button" />
+               <ToggleButton fx:id="favoriteToggleButton" text="☆ В избранное" onAction="#handleFavoriteToggle" styleClass="favorite-toggle-button" />
             </HBox>
             <HBox spacing="15">
                <!-- Постер фильма -->
