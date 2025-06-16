@@ -20,6 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -35,6 +36,7 @@ public class MainController implements Initializable {
     @FXML private Button rateMovieButton;
     @FXML private Button markWatchedButton;
     @FXML private Button logoutButton;
+    @FXML private Button favoritesButton;
     @FXML private ListView<Movie> movieListView;
     // @FXML private ComboBox<String> movieCategoryCombo; // FXID NOT FOUND
     @FXML private TextArea movieDetailsArea;
@@ -42,12 +44,14 @@ public class MainController implements Initializable {
     @FXML private ProgressIndicator loadingIndicator;
     @FXML private Label userInfoLabel;
     @FXML private Label statusLabel;
+    @FXML private ToggleButton favoriteToggleButton;
     
     // Переменные для работы с данными
     private SimpleMovieRecommendationService recommendationService;
     private ObservableList<Movie> movieList;
     private User currentUser;
     private MovieRecommendationApp app;
+    private Movie lastSelectedMovie = null;
     
     // Этот метод запускается когда открывается экран
     @Override
@@ -58,10 +62,28 @@ public class MainController implements Initializable {
         movieList = FXCollections.observableArrayList();
         movieListView.setItems(movieList);
         
+        // Настраиваем комбо-бокс категорий
+        // movieCategoryCombo.setItems(FXCollections.observableArrayList( // FXID NOT FOUND
+        //     "Все фильмы", "Поиск", "Общие рекомендации", 
+        //     "Персональные рекомендации", "Для повторного просмотра", "Оцененные фильмы"
+        // ));
+        // movieCategoryCombo.setValue("Все фильмы"); // FXID NOT FOUND
+        
+        // Добавляем обработчик изменения категории
+        // movieCategoryCombo.setOnAction(event -> handleCategoryChange()); // FXID NOT FOUND
+        
+        // Настраиваем комбо-бокс типов рекомендаций
+        // recommendationTypeCombo.setItems(FXCollections.observableArrayList(
+        //     "Общие рекомендации", "Персональные", "Пересмотреть"
+        // ));
+        // recommendationTypeCombo.setValue("Общие рекомендации");
+        
+        // Добавляем событие когда пользователь кликает на фильм
         movieListView.setOnMouseClicked(event -> {
             Movie selectedMovie = movieListView.getSelectionModel().getSelectedItem();
             if (selectedMovie != null) {
                 showMovieDetails(selectedMovie);
+                updateFavoriteToggle(selectedMovie);
             }
         });
         
@@ -355,9 +377,63 @@ public class MainController implements Initializable {
         System.out.println("✅ Фильм " + selectedMovie.getTitle() + " отмечен как просмотренный");
     }
     
+    // Обработчик изменения категории в комбо-боксе
+    private void handleCategoryChange() {
+        // String selectedCategory = movieCategoryCombo.getValue(); // FXID NOT FOUND
+        // if (selectedCategory == null) return; // FXID NOT FOUND
 
-    // private void handleCategoryChange() {
-    // }
+        // loadingIndicator.setVisible(true); // FXID NOT FOUND
+        // statusLabel.setText("Загрузка фильмов..."); // FXID NOT FOUND
+
+        // movieList.clear(); // FXID NOT FOUND
+        // List<Movie> newMovies = null; // FXID NOT FOUND
+
+        // switch (selectedCategory) { // FXID NOT FOUND
+        //     case "Все фильмы": // FXID NOT FOUND
+        //         newMovies = recommendationService.getAllMovies(50); // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        //     case "Поиск": // FXID NOT FOUND
+        //         // Оставляем текущие результаты поиска, если они есть
+        //         // Или можно предложить пользователю ввести запрос
+        //         statusLabel.setText("Введите запрос для поиска"); // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        //     case "Общие рекомендации": // FXID NOT FOUND
+        //         newMovies = recommendationService.getGeneralRecommendations(currentUser != null ? currentUser.getId() : -1, 20); // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        //     case "Персональные рекомендации": // FXID NOT FOUND
+        //         if (currentUser != null) { // FXID NOT FOUND
+        //             newMovies = recommendationService.getPersonalizedRecommendations(currentUser.getId(), 20); // FXID NOT FOUND
+        //         } else { // FXID NOT FOUND
+        //             showError("Авторизуйтесь для персональных рекомендаций"); // FXID NOT FOUND
+        //         } // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        //     case "Для повторного просмотра": // FXID NOT FOUND
+        //         if (currentUser != null) { // FXID NOT FOUND
+        //             newMovies = recommendationService.getRewatchRecommendations(currentUser.getId(), 20); // FXID NOT FOUND
+        //         } else { // FXID NOT FOUND
+        //             showError("Авторизуйтесь для рекомендаций к пересмотру"); // FXID NOT FOUND
+        //         } // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        //     case "Оцененные фильмы": // FXID NOT FOUND
+        //         if (currentUser != null) { // FXID NOT FOUND
+        //             newMovies = recommendationService.getRatedMovies(currentUser.getId()); // FXID NOT FOUND
+        //         } else { // FXID NOT FOUND
+        //             showError("Авторизуйтесь для просмотра оцененных фильмов"); // FXID NOT FOUND
+        //         } // FXID NOT FOUND
+        //         break; // FXID NOT FOUND
+        // } // FXID NOT FOUND
+
+        // if (newMovies != null) { // FXID NOT FOUND
+        //     movieList.addAll(newMovies); // FXID NOT FOUND
+        // } // FXID NOT FOUND
+
+        // loadingIndicator.setVisible(false); // FXID NOT FOUND
+        // if (newMovies != null && newMovies.isEmpty()) { // FXID NOT FOUND
+        //     statusLabel.setText("Фильмы в категории '" + selectedCategory + "' не найдены"); // FXID NOT FOUND
+        // } else if (newMovies != null) { // FXID NOT FOUND
+        //     statusLabel.setText("Загружено " + movieList.size() + " фильмов"); // FXID NOT FOUND
+        // } // FXID NOT FOUND
+    }
 
     // Показываем детали фильма
     private void showMovieDetails(Movie movie) {
@@ -397,31 +473,63 @@ public class MainController implements Initializable {
         
         // Показываем текст
         movieDetailsArea.setText(details);
-        
         // Загружаем постер фильма
         loadMoviePoster(movie);
+        // Обновляем статус избранного
+        updateFavoriteToggle(movie);
+        lastSelectedMovie = movie;
+    }
+
+    private void updateFavoriteToggle(Movie movie) {
+        if (currentUser == null || movie == null) {
+            favoriteToggleButton.setSelected(false);
+            favoriteToggleButton.setText("☆ В избранное");
+            favoriteToggleButton.setDisable(true);
+            return;
+        }
+        boolean isFavorite = recommendationService.isMovieFavorite(currentUser.getId(), movie.getId());
+        favoriteToggleButton.setSelected(isFavorite);
+        favoriteToggleButton.setText(isFavorite ? "★ В избранном" : "☆ В избранное");
+        favoriteToggleButton.setDisable(false);
+    }
+
+    @FXML
+    private void handleFavoriteToggle() {
+        if (currentUser == null || lastSelectedMovie == null) return;
+        boolean wantFavorite = favoriteToggleButton.isSelected();
+        if (wantFavorite) {
+            boolean added = recommendationService.addMovieToFavorites(currentUser.getId(), lastSelectedMovie.getId());
+            if (added) {
+                favoriteToggleButton.setText("★ В избранном");
+                statusLabel.setText("Добавлено в избранное");
+            } else {
+                favoriteToggleButton.setSelected(false);
+                statusLabel.setText("Не удалось добавить в избранное");
+            }
+        } else {
+            boolean removed = recommendationService.removeMovieFromFavorites(currentUser.getId(), lastSelectedMovie.getId());
+            if (removed) {
+                favoriteToggleButton.setText("☆ В избранное");
+                statusLabel.setText("Удалено из избранного");
+            } else {
+                favoriteToggleButton.setSelected(true);
+                statusLabel.setText("Не удалось удалить из избранного");
+            }
+        }
     }
     
     // Загружаем постер фильма
     private void loadMoviePoster(Movie movie) {
-        // Сначала очищаем старый постер
         moviePosterView.setImage(null);
-        
-        // Получаем ссылку на постер
         String posterUrl = movie.getFullPosterUrl();
-        
-        // Если нет ссылки - выходим
         if (posterUrl == null || posterUrl.isEmpty()) {
             return;
         }
-        
-        // Пробуем загрузить картинку
         try {
             Image posterImage = new Image(posterUrl, true); // true = загружать в фоне
             moviePosterView.setImage(posterImage);
         } catch (Exception e) {
             System.err.println("Ошибка загрузки постера: " + e.getMessage());
-            // Если ошибка - оставляем пустым
             moviePosterView.setImage(null);
         }
     }
@@ -440,5 +548,23 @@ public class MainController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void handleFavorites() {
+        if (currentUser == null) {
+            statusLabel.setText("Сначала войдите в систему");
+            return;
+        }
+        try {
+            // Получаем избранные фильмы пользователя
+            List<Movie> favorites = recommendationService.getFavoriteMovies(currentUser.getId());
+            movieList.clear();
+            movieList.addAll(favorites);
+            statusLabel.setText("Показаны избранные фильмы: " + favorites.size());
+            movieDetailsArea.setText("Выберите фильм из избранного для просмотра подробностей.");
+        } catch (Exception e) {
+            statusLabel.setText("Ошибка загрузки избранного: " + e.getMessage());
+        }
     }
 }
