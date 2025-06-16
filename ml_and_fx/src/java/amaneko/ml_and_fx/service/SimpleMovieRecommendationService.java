@@ -1083,6 +1083,49 @@ public class SimpleMovieRecommendationService {
         return movies;
     }
 
+    /**
+     * Получить избранные фильмы пользователя
+     */
+    public List<Movie> getFavoriteMovies(int userId) {
+        List<Movie> movies = new ArrayList<>();
+        String query = """
+            SELECT m.id, m.title, m.overview, m.vote_average, 
+                   m.popularity, m.release_year, m.poster_path,
+                   STRING_AGG(g.name, ', ') as genres,
+                   uf.added_at
+            FROM user_favorites uf
+            JOIN movies m ON uf.movie_id = m.id
+            LEFT JOIN movie_genres mg ON m.id = mg.movie_id
+            LEFT JOIN genres g ON mg.genre_id = g.id
+            WHERE uf.user_id = ?
+            GROUP BY m.id, m.title, m.overview, m.vote_average, 
+                     m.popularity, m.release_year, m.poster_path, uf.added_at
+            ORDER BY uf.added_at DESC
+            """;
+        try (PreparedStatement stmt = dbConnection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Movie movie = new Movie(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("overview"),
+                        rs.getDouble("vote_average"),
+                        rs.getDouble("popularity"),
+                        rs.getInt("release_year"),
+                        rs.getString("poster_path"),
+                        rs.getString("genres")
+                    );
+                    // Можно добавить обработку rs.getTimestamp("added_at") если нужно
+                    movies.add(movie);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Ошибка получения избранных фильмов: " + e.getMessage());
+        }
+        return movies;
+    }
+
     // Вспомогательные методы
     
     private List<Movie> executeMovieQuery(PreparedStatement stmt) throws SQLException {
@@ -1151,6 +1194,55 @@ public class SimpleMovieRecommendationService {
             System.err.println("Ошибка при проверке просмотра фильма: " + e.getMessage());
         }
         return false;
+    }
+    
+    /**
+     * Проверяет, находится ли фильм в избранном у пользователя
+     */
+    public boolean isMovieFavorite(int userId, int movieId) {
+        String query = "SELECT 1 FROM user_favorites WHERE user_id = ? AND movie_id = ?";
+        try (PreparedStatement stmt = dbConnection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, movieId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.err.println("Ошибка проверки избранного: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Добавляет фильм в избранное для пользователя
+     */
+    public boolean addMovieToFavorites(int userId, int movieId) {
+        String query = "INSERT INTO user_favorites (user_id, movie_id, added_at) VALUES (?, ?, NOW()) ON CONFLICT DO NOTHING";
+        try (PreparedStatement stmt = dbConnection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, movieId);
+            int affected = stmt.executeUpdate();
+            return affected > 0;
+        } catch (SQLException e) {
+            System.err.println("Ошибка добавления в избранное: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Удаляет фильм из избранного для пользователя
+     */
+    public boolean removeMovieFromFavorites(int userId, int movieId) {
+        String query = "DELETE FROM user_favorites WHERE user_id = ? AND movie_id = ?";
+        try (PreparedStatement stmt = dbConnection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, movieId);
+            int affected = stmt.executeUpdate();
+            return affected > 0;
+        } catch (SQLException e) {
+            System.err.println("Ошибка удаления из избранного: " + e.getMessage());
+            return false;
+        }
     }
 
     // Эти методы взаимодействуют с user_views и сессионным кэшем
