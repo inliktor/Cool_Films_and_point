@@ -101,6 +101,16 @@ public class createMoviesTable {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
         );
+                    
+        -- Таблица предпочтений пользователей
+        CREATE TABLE IF NOT EXISTS user_preferences (
+            user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+            preferred_genres TEXT,
+            min_rating REAL DEFAULT 0.0,
+            include_watched_movies BOOLEAN DEFAULT FALSE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
         
         -- Индексы для оптимизации запросов
         CREATE INDEX IF NOT EXISTS idx_movies_year ON movies(release_year);
